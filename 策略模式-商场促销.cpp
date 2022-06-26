@@ -113,6 +113,7 @@ class CashSuper {
 public:
 	virtual double acceptCash(double money) { return 0; }
 };
+
 class CashNormal : public CashSuper {
 public:
 	double acceptCash(double money) {
@@ -235,10 +236,11 @@ int main() {
 
 
 	/******************* 策略模式、简单工厂应用 Begin *******************/
-
+	// 注意与纯策略模式的区别
 	CashContext* cashContext = new CashContext("满300返100");
 	double money = 800;
 	std::cout << cashContext->GetResult(money) << std::endl;
+
 	/******************* 策略模式、简单工厂应用 End *******************/
 	return 0;
 }

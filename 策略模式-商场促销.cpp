@@ -63,10 +63,59 @@ public:
 	}
 };
 
+
+class Strategy {
+public:
+	virtual void AlgorithmInterface() { }
+};
+
+class ConcreteStrategyA : public Strategy {
+public:
+	void AlgorithmInterface() {
+		std::cout << "算法A实现" << std::endl;
+	}
+};
+
+class ConcreteStrategyB : public Strategy {
+public:
+	void AlgorithmInterface() {
+		std::cout << "算法B实现" << std::endl;
+	}
+};
+
+class ConcreteStrategyC : public Strategy {
+public:
+	void AlgorithmInterface() {
+		std::cout << "算法C实现" << std::endl;
+	}
+};
+
+class Context {
+public:
+	Strategy* strategy = nullptr;
+	Context(Strategy* strategy) { // 传入策略对象进行初始化
+		this->strategy = strategy;
+	}
+	void ContextInterface() { // 根据具体的策略对象，调用其算法的方法
+		strategy->AlgorithmInterface();
+	}
+};
+
 int main() {
 	CashSuper *csuper = CashFactory::createCashAccept("打八折");
 	auto money = 300;
 	auto totalPrice = csuper->acceptCash(money);
-	std::cout << totalPrice;
+	std::cout << totalPrice << std::endl;
+
+	Context* context;
+	context = new Context(new ConcreteStrategyA());
+	context->ContextInterface();
+
+	context = new Context(new ConcreteStrategyB());
+	context->ContextInterface();
+
+	context = new Context(new ConcreteStrategyC());
+	context->ContextInterface();
+
 	return 0;
 }

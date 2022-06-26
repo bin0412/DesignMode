@@ -107,7 +107,7 @@ public:
 
 /******************* 策略模式 End ********************/
 
-/******************* 商场系统实现 Begin ********************/
+/******************* 策略模式 - 商场系统实现 Begin ********************/
 
 class CashSuper {
 public:
@@ -148,18 +148,48 @@ public:
 	}
 };
 
-class CashContext {
+//class CashContext {
+//public:
+//	CashSuper* cs = nullptr;
+//	CashContext(CashSuper* csuper) {
+//		this->cs = csuper;
+//	}
+//	double GetResult(double money) {
+//		return cs->acceptCash(money);
+//	}
+//};
+
+/******************* 策略模式 - 商场系统实现 End ********************/
+
+
+
+/******************* 策略模式结合简单工厂 - 商场系统实现 Begin ********************/
+
+class CashContext { // 将原本需要在客户端实现的代码放到了构造函数中 : 注意与纯策略模式代码的区别
 public:
 	CashSuper* cs = nullptr;
-	CashContext(CashSuper* csuper) {
-		this->cs = csuper;
+	CashContext(std::string type) {
+		CashSuper* csuper{ nullptr };
+		if ("正常收费" == type) {
+			csuper = new CashNormal();
+		}
+		else if ("满300返100" == type) {
+			csuper = new CashReturn(300, 100);
+		}
+		else if("打8折" == type) {
+			csuper = new CashRebate(0.8);
+		}
+		cs = csuper;
 	}
 	double GetResult(double money) {
 		return cs->acceptCash(money);
 	}
 };
 
-/******************* 商场系统实现 End ********************/
+/******************* 策略模式结合简单工厂 - 商场系统实现 Begin ********************/
+
+
+
 int main() {
 	/******************* 简单工厂 Begin *******************/
 
@@ -187,19 +217,28 @@ int main() {
 
 	/******************* 策略模式应用 Begin *******************/
 
-	CashContext* cashContext = nullptr;
-	std::string promotion = "满300返100";
-	if ("正常收费" == promotion) {
-		cashContext = new CashContext(new CashNormal());
-	}
-	else if ("满300返100" == promotion) {
-		cashContext = new CashContext(new CashReturn(300, 100));
-	}
-	else if("打8折" == promotion) {
-		cashContext = new CashContext(new CashRebate(0.8));
-	}
+	//CashContext* cashContext = nullptr;
+	//std::string promotion = "满300返100";
+	//if ("正常收费" == promotion) {
+	//	cashContext = new CashContext(new CashNormal());
+	//}
+	//else if ("满300返100" == promotion) {
+	//	cashContext = new CashContext(new CashReturn(300, 100));
+	//}
+	//else if("打8折" == promotion) {
+	//	cashContext = new CashContext(new CashRebate(0.8));
+	//}
 
-	std::cout << cashContext->GetResult(800);
+	//std::cout << cashContext->GetResult(800);
 	/******************* 策略模式应用 End *******************/
+
+
+
+	/******************* 策略模式、简单工厂应用 Begin *******************/
+
+	CashContext* cashContext = new CashContext("满300返100");
+	double money = 800;
+	std::cout << cashContext->GetResult(money) << std::endl;
+	/******************* 策略模式、简单工厂应用 End *******************/
 	return 0;
 }

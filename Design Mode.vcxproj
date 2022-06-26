@@ -142,7 +142,8 @@
     <ClCompile Include="Design Mode.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="简单工厂模式.cpp" />
+    <ClCompile Include="策略模式-商场促销.cpp" />
+    <ClCompile Include="简单工厂模式-计算器应用.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -20,5 +20,8 @@
     <ClCompile Include="策略模式-商场促销.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="策略模式结合简单工厂.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

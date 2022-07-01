@@ -68,7 +68,7 @@ void test() {
 class Person {
 public:
 	Person() {}
-	Person(string name) {
+	Person(string name) { // Component的模型，因为只有一个，合并了Component与ConcreteComponent
 		this->name = name;
 	}
 	virtual void Show() {
@@ -78,7 +78,7 @@ private:
 	string name;
 };
 
-class Finery : public Person {
+class Finery : public Person { // Decorator的模型
 public:
 	void Decorate(Person* component) {
 		this->component = component;
@@ -92,7 +92,7 @@ protected:
 	Person* component;
 };
 
-class TShirts :public Finery {
+class TShirts :public Finery { // ConcreteDecorator的模型
 public:
 	void Show() {
 		cout << "大T恤 ";
